@@ -1,0 +1,5 @@
+.syndicate*
+.syndicate
+logs/
+target/
+target/*
