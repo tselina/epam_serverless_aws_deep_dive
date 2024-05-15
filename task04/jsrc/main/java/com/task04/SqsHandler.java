@@ -27,7 +27,7 @@ import java.util.Map;
 		name = "cmtr-67d6e834-demo-sqs-queue",
 		resourceType = ResourceType.SQS_QUEUE
 )
-public class SqsHandler implements RequestHandler<Object, Map<String, Object>> {
+public class SqsHandler implements RequestHandler<Object, String> {
 
 	public String handleRequest(Object request, Context context) {
 		System.out.println(request);
