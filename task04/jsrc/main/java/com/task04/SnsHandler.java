@@ -20,11 +20,11 @@ import java.util.Map;
     logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @SnsEventSource(
-        targetTopic = "cmtr-67d6e834-demo-sns_topic",
+        targetTopic = "cmtr-67d6e834-lambda_topic",
         regionScope  = RegionScope.DEFAULT
 )
 @DependsOn(
-        name = "cmtr-67d6e834-demo-sns_topic",
+        name = "cmtr-67d6e834-lambda_topic",
         resourceType = ResourceType.SNS_TOPIC
 )
 public class SnsHandler implements RequestHandler<Object, String> {

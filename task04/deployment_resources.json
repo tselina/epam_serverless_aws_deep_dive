@@ -48,7 +48,7 @@
       "${account_id}"
     ]
   },
-  "cmtr-67d6e834-demo-sqs-queue": {
+  "cmtr-67d6e834-async_queue": {
     "resource_type": "sqs_queue",
     "fifo_queue": false,
     "visibility_timeout": 300,
@@ -66,7 +66,7 @@
       }
     ]
   },
-  "cmtr-67d6e834-demo-sns_topic": {
+  "cmtr-67d6e834-lambda_topic": {
     "resource_type": "sns_topic",
     "region": "eu-central-1",
     "event_sources": [],

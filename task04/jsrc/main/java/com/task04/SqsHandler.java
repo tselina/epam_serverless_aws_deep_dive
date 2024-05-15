@@ -20,11 +20,11 @@ import java.util.Map;
 	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @SqsTriggerEventSource(
-		targetQueue = "cmtr-67d6e834-demo-sqs-queue",
+		targetQueue = "cmtr-67d6e834-async_queue",
 		batchSize = 1
 )
 @DependsOn(
-		name = "cmtr-67d6e834-demo-sqs-queue",
+		name = "cmtr-67d6e834-async_queue",
 		resourceType = ResourceType.SQS_QUEUE
 )
 public class SqsHandler implements RequestHandler<Object, String> {
