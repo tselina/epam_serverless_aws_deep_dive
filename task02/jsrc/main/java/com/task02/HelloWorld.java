@@ -53,7 +53,7 @@ public class HelloWorld implements RequestHandler<Map<String, Object>, Map<Strin
 		if (rawPath.equals("/hello")) {
 			resultMap.put("body", "{\"statusCode\": 200, \"message\": \"Hello from Lambda\"}");
 		} else {
-			resultMap.put("body", "{\"statusCode\": 400, \"message\": \"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}\"}");
+			resultMap.put("body", "{\"statusCode\": 400, \"message\": \"Bad request syntax or unsupported method. Request path: " + rawPath + ". HTTP method: GET\"}");
 		}
 		return resultMap;
 	}
