@@ -3,6 +3,7 @@ package com.task02;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
 import com.syndicate.deployment.annotations.lambda.LambdaUrlConfig;
 import com.syndicate.deployment.model.RetentionSetting;
@@ -24,9 +25,9 @@ import java.util.Map;
 	invokeMode = InvokeMode.BUFFERED
 )
 //@LambdaConsurrency()
-public class HelloWorld implements RequestHandler<Map<String, Object>, Map<String, Object>> {
+public class HelloWorld implements RequestHandler<APIGatewayProxyRequestEvent, Map<String, Object>> {
 
-	public Map<String, Object> handleRequest(Map<String, Object> request, Context context) {
+	public Map<String, Object> handleRequest(APIGatewayProxyRequestEvent request, Context context) {
 		LambdaLogger logger = context.getLogger();
 //		System.out.println("Hello from lambda");
 		Map<String, Object> resultMap = new HashMap<>();
@@ -38,11 +39,12 @@ public class HelloWorld implements RequestHandler<Map<String, Object>, Map<Strin
 //		resultMap.put("requestFromRequest class:", request.getClass().getName());
 		String rawPath = "";
 		try {
-			for (Map.Entry<String, Object> entry: request.entrySet()) {
-				logger.log("key:" + entry.getKey() + "|||value:" + entry.getValue());
-			}
+//			for (Map.Entry<String, Object> entry: request.entrySet()) {
+//				logger.log("key:" + entry.getKey() + "|||value:" + entry.getValue());
+//			}
 //			resultMap.put("requestFromRequest", request.toString());
-			rawPath = request.get("rawPath").toString();
+//			rawPath = request.get("rawPath").toString();
+			rawPath = request.getPath();
 //			resultMap.put("rawPath", rawPath);
 //			resultMap.put("rawQueryString", request.get("rawQueryString").toString());
 //			resultMap.put("body", "Some response");
@@ -51,9 +53,12 @@ public class HelloWorld implements RequestHandler<Map<String, Object>, Map<Strin
 			System.out.println(Arrays.toString(e.getStackTrace()));
 		}
 		if (rawPath.equals("/hello")) {
-			resultMap.put("body", "{\"statusCode\": 200, \"message\": \"Hello from Lambda\"}");
+			resultMap.put("statusCode", "200");
+			resultMap.put("message", "Hello from Lambda");
 		} else {
-			resultMap.put("body", "{\"statusCode\": 400, \"message\": \"Bad request syntax or unsupported method. Request path: " + rawPath + ". HTTP method: GET\"}");
+			resultMap.put("statusCode", "400");
+			resultMap.put("message", "Bad request syntax or unsupported method. Request path: " + rawPath + ". HTTP method: " + request.getHttpMethod());
+//			resultMap.put("body", "{\"statusCode\": 400, \"message\": \"Bad request syntax or unsupported method. Request path: " + rawPath + ". HTTP method: GET\"}");
 		}
 		return resultMap;
 	}
