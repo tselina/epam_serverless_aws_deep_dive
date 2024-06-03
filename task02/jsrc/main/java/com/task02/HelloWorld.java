@@ -23,18 +23,19 @@ import java.util.Map;
 	authType = AuthType.NONE,
 	invokeMode = InvokeMode.BUFFERED
 )
+//@LambdaConsurrency()
 public class HelloWorld implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 
 	public Map<String, Object> handleRequest(Map<String, Object> request, Context context) {
 		LambdaLogger logger = context.getLogger();
-		System.out.println("Hello from lambda");
+//		System.out.println("Hello from lambda");
 		Map<String, Object> resultMap = new HashMap<>();
 //		resultMap.put("statusCode", 200);
 //		resultMap.put("message", "Hello from Lambda");
-		resultMap.put("statusCode", "200");
+//		resultMap.put("statusCode", "200");
 		logger.log(request.toString());
-		resultMap.put("request", request.toString());
-		resultMap.put("requestFromRequest class:", request.getClass().getName());
+//		resultMap.put("request", request.toString());
+//		resultMap.put("requestFromRequest class:", request.getClass().getName());
 		String rawPath = "";
 		try {
 			for (Map.Entry<String, Object> entry: request.entrySet()) {
@@ -52,7 +53,7 @@ public class HelloWorld implements RequestHandler<Map<String, Object>, Map<Strin
 		if (rawPath.equals("/hello")) {
 			resultMap.put("body", "{\"statusCode\": 200, \"message\": \"Hello from Lambda\"}");
 		} else {
-			resultMap.put("body", "{\"statusCode\": 200, \"message\": \"Not Hello\"}");
+			resultMap.put("body", "{\"statusCode\": 400, \"message\": \"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}\"}");
 		}
 		return resultMap;
 	}
